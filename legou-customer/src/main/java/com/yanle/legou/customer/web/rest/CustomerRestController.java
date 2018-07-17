@@ -33,15 +33,21 @@ public class CustomerRestController {
     public ResultDTO<CustomerVo> getCustomerInfoByCustomerId(Long customerId) {
         if (null != customerId) {
             Customer customer = customerService.getCustomerInfoByCustomerId(customerId);
-            Store store = storeFeignClient.getStoreInfoByStoreId(customer.getStoreId());
-            CustomerVo customerVo = new CustomerVo();
-            customerVo.setId(customer.getId());
-            customerVo.setName(customer.getName());
-            customerVo.setAge(customer.getAge());
-            customerVo.setStoreId(store.getId());
-            customerVo.setStoreName(store.getStoreName());
-            customerVo.setStoreAddress(store.getAddress());
-            return new ResultDTO<CustomerVo>(RpcCommonCode.SUCCESS, null, customerVo);
+            ResultDTO<Store> resultDTO = storeFeignClient.getStoreInfoByStoreId(customer.getStoreId());
+            if (resultDTO.getCode() == RpcCommonCode.SUCCESS) {
+                Store store = resultDTO.getResult();
+                CustomerVo customerVo = new CustomerVo();
+                customerVo.setId(customer.getId());
+                customerVo.setName(customer.getName());
+                customerVo.setAge(customer.getAge());
+                customerVo.setStoreId(store.getId());
+                customerVo.setStoreName(store.getStoreName());
+                customerVo.setStoreAddress(store.getAddress());
+                return new ResultDTO<CustomerVo>(RpcCommonCode.SUCCESS, null, customerVo);
+            } else {
+                return new ResultDTO<CustomerVo>(RpcCommonCode.FAILURE, resultDTO.getMessage(), null);
+            }
+
         }
         return new ResultDTO<CustomerVo>(RpcCommonCode.FAILURE, "顾客id: customerId 不允许为空!", null);
     }

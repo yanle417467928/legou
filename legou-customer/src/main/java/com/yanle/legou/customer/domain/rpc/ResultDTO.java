@@ -21,5 +21,5 @@ public class ResultDTO<T> implements Serializable {
 
     private String message;
 
-    private T result;
+    private T  result;
 }
