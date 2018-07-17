@@ -1,0 +1,30 @@
+server:
+  port: 8091
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8090/eureka/
+spring:
+  application:
+    name: legou-service-router
+zuul:
+  routes:
+    legou-customer:
+      path: /customer/**
+      stripPrefix: false
+    legou-store:
+      path: /store/**
+      stripPrefix: false
+  host:
+    connect-timeout-millis: 5000
+    socket-timeout-millis: 5000
+
+ribbon:
+  ReadTimeout: 5000
+  ConnectTimeout: 50000
+
+
+
+

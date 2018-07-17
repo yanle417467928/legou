@@ -27,7 +27,13 @@ spring:
         login-password: admin
         allow:
         deny:
-
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8090/eureka/
+  instance:
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
 # 顾客库
 master:
   datasource:

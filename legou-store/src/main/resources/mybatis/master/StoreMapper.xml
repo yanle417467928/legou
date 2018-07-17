@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanle.legou.store.dao.master.StoreDao">
+
+    <select id="getStoreInfoById" parameterType="java.lang.Long" resultType="com.yanle.legou.store.domain.Store">
+        select *  from store_base_info where id= #{storeId}
+    </select>
+
+</mapper>
