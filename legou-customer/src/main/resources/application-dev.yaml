@@ -49,6 +49,13 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 2000
+
+# hystrix dashboard 监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 # 顾客库
 master:
   datasource:
@@ -63,3 +70,4 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+
